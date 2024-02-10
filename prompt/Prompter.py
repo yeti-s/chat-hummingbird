@@ -28,16 +28,13 @@ class Prompter(object):
 
     def generate_prompt(
         self,
-        inputs: list[str],
+        inputs: dict[str, str],
         label: Union[None, str] = None,
     ) -> str:
         # returns the full prompt from instruction and optional input
         # if a label (=response, =output) is provided, it's also appended.
         
-        args = {}
-        for i in range(len(inputs)):
-            args[f'input{i}'] = inputs[i]
-        res = self.template['prompt'].format(**args)
+        res = self.template['prompt'].format(**inputs)
         
         if label:
             res = f"{res}{label}"
@@ -51,9 +48,10 @@ class Prompter(object):
 
 def test_prompt(template_name:str):
     prompter = Prompter(template_name, True)
-    inputs = []
+    
+    inputs = {}
     for i in range(prompter.get_num_inputs()):
-        inputs.append(f'Prompt Input {i}')
+        inputs[f'input{i}'] = f'Prompt-Input-{i}'
     prompter.generate_prompt(inputs, 'Prompt Label')
     
 if __name__ == "__main__":
