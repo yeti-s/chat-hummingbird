@@ -48,20 +48,29 @@ def test_chatbot():
     
     # init submodules
     on_llm_new_sentence_handler = lambda sentence: print(f'{user_id}: {sentence}')
-    on_llm_end_handler = lambda result: print('Generation Complete.')
-    generator = OpenAIGenerator(
-        GENERATOR_MODEL, 
-        OPENAI_API_KEY,
-        on_llm_new_sentence_handler=on_llm_new_sentence_handler,
-        on_llm_end_handler=on_llm_end_handler
-    )
+    on_llm_end_handler = lambda _: print('Generation Complete.')
+    generator = OpenAIGenerator(GENERATOR_MODEL, OPENAI_API_KEY)
     summarizer = Summarizer(SUMMARIZER_MODEL)
     chatbot = Chatbot(generator, summarizer, db_manager)
     
     # generate response
-    summary = "인센과 스타크 대화, 서로 안부 인사를 물어보았다."
-    query = "나는 인센. 우리가 아프가니스탄에서 처음 만났잖아, 그때 너는 왜 아프가니스탄에 온거야?"
-    _, summary = chatbot.generate(query, user_id, summary)
+    query = "나는 로드. 토니, 너의 슈트가 처음 만들어진 날을 기억해?"
+    _, summary = chatbot.generate(
+        query, 
+        user_id,
+        on_llm_new_sentence_handler=on_llm_new_sentence_handler,
+        on_llm_end_handler=on_llm_end_handler
+    )
+    print(f'Dialogue summary : {summary}')
+    
+    query = "나는 로드. F22에 쫒기고 있을 때, 내가 구해준거 평생 잊지 않는다고 했잖아."
+    _, summary = chatbot.generate(
+        query, 
+        user_id, 
+        f'로드와 토니의 대화. {summary}',
+        on_llm_new_sentence_handler=on_llm_new_sentence_handler,
+        on_llm_end_handler=on_llm_end_handler
+    )
     print(f'Dialogue summary : {summary}')
     
     # close test
@@ -74,7 +83,6 @@ if __name__ == "__main__":
     print(f'OPENAI_API_KEY: {OPENAI_API_KEY}')
     print(f'GENERATOR_MODEL: {GENERATOR_MODEL}')
     print(f'EMBEDDING_MODEL: {EMBEDDING_MODEL}')
-    print(f'DB_HOST: {DB_HOST}')
     print(f'DB_PORT: {DB_PORT}')
     print(f'SUMMARIZER_MODEL: {SUMMARIZER_MODEL}')
     print('------------------------')
