@@ -23,13 +23,14 @@ DB_PORT = os.getenv('DB_PORT')
 SUMMARIZER_MODEL = os.getenv('SUMMARIZER_MODEL')
 
 def test_all_unit():
-    print('----- START UNIT TEST')
+    print('----- START UNIT TEST -----')
     test_open_ai(GENERATOR_MODEL, OPENAI_API_KEY)
     test_chroma_manager(DB_HOST, DB_PORT, EMBEDDING_MODEL)
     test_summarizer(SUMMARIZER_MODEL)
+    print('---- FINISH UNIT TEST ----')
 
 def test_chatbot():
-    print('----- START INTEGRATION TEST')
+    print('----- START INTEGRATION TEST -----')
     
     # connect to DB
     db_manager = ChromaManager(DB_HOST, DB_PORT, EMBEDDING_MODEL)
@@ -65,7 +66,18 @@ def test_chatbot():
     
     # close test
     db_manager.delete_personas_by_user_id(user_id)
+    print('----- FINISH INTEGRATION TEST -----')
 
 if __name__ == "__main__":
+    
+    print('----- ENVIRONMENT -----')
+    print(f'OPENAI_API_KEY: {OPENAI_API_KEY}')
+    print(f'GENERATOR_MODEL: {GENERATOR_MODEL}')
+    print(f'EMBEDDING_MODEL: {EMBEDDING_MODEL}')
+    print(f'DB_HOST: {DB_HOST}')
+    print(f'DB_PORT: {DB_PORT}')
+    print(f'SUMMARIZER_MODEL: {SUMMARIZER_MODEL}')
+    print('------------------------')
+    
     test_all_unit()
     test_chatbot()
