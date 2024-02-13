@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from Chatbot import Chatbot
+from chatbot import Chatbot
 from vectordb.chroma_manager import ChromaManager
 from generator.openai import OpenAIGenerator
 from summarizer.summarizer import Summarizer
