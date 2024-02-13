@@ -18,17 +18,3 @@ class Summarizer():
         gen_ids = self.model.generate(**input_ids, max_length=self.max_length, use_cache=True)
         generated = self.tokenizer.decode(gen_ids[0], skip_special_tokens=True)
         return generated
-    
-def test_summarizer(model_name):
-    print('====== TEST SUMMARIZATION')
-    summarizer = Summarizer(model_name)
-    summary = summarizer.summarize([
-        '오늘 뭐해?',
-        '그냥 공부하고 있지.',
-        '7시에 서울대입구에서 술 고?',
-        '메뉴는?',
-        '조개구이 어때? 그때 사람 많아서 못먹었잖아.',
-        '고고!'
-    ])
-    print(f'Is summary string ? {isinstance(summary, str)}')
-    print(f'Summary : {summary}')

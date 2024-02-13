@@ -1,9 +1,7 @@
-# -- coding: utf-8 --
-import subprocess
 import chromadb
 
 from transformers import AutoTokenizer
-
+from chromadb import GetResult
 from langchain.schema import Document
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -83,7 +81,7 @@ class ChromaManager():
     def delete_personas_by_user_id(self, user_id:str) -> None:
         self.personas.delete(where={'user_id': user_id})
         
-    def get_persona_by_user_id(self, user_id:str):
+    def get_persona_by_user_id(self, user_id:str) -> GetResult:
         return self.personas.get(where={'user_id': user_id})
 
     def search_persona(self, query:str, user_id:str) -> str:
@@ -123,45 +121,3 @@ class ChromaManager():
             separators = ['\n', '\n\n', '.', '?', '!']
         )
 
-
-chroma_process = None
-
-# def run_chroma(host, port):
-#     print('===== RUN CHROMA DB')
-#     chroma_process = subprocess.Popen(["chroma", "run", "--host", host, "--port", port])
-#     time.sleep(1000)
-
-# def stop_chroma():
-#     print('===== CLOSE CHROMA DB')
-#     if chroma_process is not None:
-#         chroma_process.terminate()
-#         chroma_process.wait()
-
-def test_chroma_manager(host, port, model_name):
-    # run_chroma(host, port)
-    
-    print('===== CONNECT TO CHROMA DB')
-    chroma_manager = ChromaManager(host, port, model_name, chunk_size=15)
-    
-    print('===== ADD PERSONA TO CHROMA DB')
-    persona = '이것은 테스트 페르소나 입니다. Splitter로 자르기 위해 길게 표현했어요. 또 chunk_size도 작게 조절했죠. 테스트 페르소나 였습니다. 감사합니다.'
-    user_id = 'TEST-ID-0001'
-    print(f'Add [user_id: {user_id}] [persona: {persona}]')
-    print(chroma_manager.add_persona(persona, user_id))
-    
-    print('===== GET PERSONA BY USER ID')
-    print(f'Get [user_id: {user_id}]')
-    print(chroma_manager.get_persona_by_user_id(user_id))
-    
-    print('===== SEARCH PERSONA BY USER ID')
-    query = '길게 표현'
-    print(f'Get [query: {query}], [user_id: {user_id}]')
-    print(chroma_manager.search_persona(query, user_id))
-    
-    print('===== DELETE PERSONA BY USER ID')
-    print(f'Delete [user_id: {user_id}]')
-    chroma_manager.delete_personas_by_user_id(user_id)
-    print(chroma_manager.get_persona_by_user_id(user_id))
-    
-    # stop_chroma()
-    
