@@ -22,10 +22,10 @@ if __name__ == '__main__':
     print('------------------------')
     
     parser = argparse.ArgumentParser(description='test modules manually.')
-    parser.add_argument('--chatbot', type=bool, default=False, help='test chatbot module.')
-    parser.add_argument('--chroma', type=bool, default=False, help='test chroma manager module.')
-    parser.add_argument('--openai', type=bool, default=False, help='test open ai generator module.')
-    parser.add_argument('--summarizer', type=bool, default=False, help='test summarizer module.')
+    parser.add_argument('--chatbot', action='store_true', help='test chatbot module.')
+    parser.add_argument('--chroma', action='store_true', help='test chroma manager module.')
+    parser.add_argument('--openai', action='store_true', help='test open ai generator module.')
+    parser.add_argument('--summarizer', action='store_true', help='test summarizer module.')
     
     args = parser.parse_args()
     
