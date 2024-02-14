@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 
-from src.chatbot import Chatbot
-from src.vectordb.chroma_manager import ChromaManager
-from src.generator.openai import OpenAIGenerator
-from src.summarizer.summarizer import Summarizer
+from chat_hummingbird.chatbot import Chatbot
+from chat_hummingbird.vectordb.chroma_manager import ChromaManager
+from chat_hummingbird.generator.openai import OpenAIGenerator
+from chat_hummingbird.summarizer.summarizer import Summarizer
 
 
 def run_chatbot(host, port, embedding_model, generator_model, open_ai_key, summarizer_model):

@@ -1,11 +1,11 @@
-from src.summarizer.summarizer import Summarizer
+from chat_hummingbird.summarizer.summarizer import Summarizer
 
 def run_summarizer(model_name):
     print('====== TEST SUMMARIZATION =====')
     
     summarizer = Summarizer(model_name)
     
-    dialogues = ['오늘 뭐해?', '그냥 공부하고 있지.', '서울대입구에서 술 고?', '7시쯤 가능함!', '7시 오케이!']
+    dialogues = ['성근과 준섭의 대화, 올해 수능이 어려웠다고 말하고 있다.', '성근이 말한다. 성적이면 생각보다 높은 대학에 지원해도 될 것 같다고 한다.']
     print('dialogues :', dialogues)
     summary = summarizer.summarize(dialogues)
     assert type(summary) == str

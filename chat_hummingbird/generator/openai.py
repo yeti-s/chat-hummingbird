@@ -8,7 +8,7 @@ from langchain.prompts import (
     ChatPromptTemplate
 )
 
-from src.generator.generator import Generator, CustomCallbackHandler
+from chat_hummingbird.generator.generator import Generator, CustomCallbackHandler
 
 system_prompt_template = '''
 You are my friend.

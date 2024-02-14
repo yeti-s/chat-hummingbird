@@ -1,8 +1,8 @@
 from typing import Union, Callable
 
-from src.vectordb.db_manager import DBManager
-from src.generator.generator import Generator
-from src.summarizer.summarizer import Summarizer
+from chat_hummingbird.vectordb.db_manager import DBManager
+from chat_hummingbird.generator.generator import Generator
+from chat_hummingbird.summarizer.summarizer import Summarizer
 
 class Chatbot():
     def __init__(self, generator:Generator, summarizor:Summarizer, db_manager:DBManager) -> None:

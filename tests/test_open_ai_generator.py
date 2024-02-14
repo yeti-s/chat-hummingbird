@@ -1,4 +1,4 @@
-from src.generator.openai import OpenAIGenerator
+from chat_hummingbird.generator.openai import OpenAIGenerator
 
 def run_open_ai_generator(model_name, openai_api_key):
     print('===== TEST OPEN AI GENERATOR =====')

@@ -1,4 +1,4 @@
-from src.vectordb.chroma_manager import ChromaManager
+from chat_hummingbird.vectordb.chroma_manager import ChromaManager
 
 def run_chroma_manager(host, port, model_name):
     print('===== TEST CHROMA MANAGER =====')
