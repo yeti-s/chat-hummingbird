@@ -162,3 +162,6 @@ cython_debug/
 # Database, Dataset
 data/
 chroma_data/
+
+# Chat-UI
+chat-ui-for-test/

@@ -16,8 +16,8 @@ class ChromaManager():
         host:str, 
         port:str, 
         model_name:str,
-        chunk_size:int = 256,
-        chunk_overlap:int = 0,
+        chunk_size:int = 128,
+        chunk_overlap:int = 24,
     ) -> None:
         self.connected = False
         self.__connect_db__(host, port, model_name)
