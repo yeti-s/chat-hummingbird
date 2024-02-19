@@ -7,12 +7,14 @@ class Summarizer():
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.max_length = max_length
         self.device = device
+        
         self.model.eval().to(device)
+        self.tokenizer.truncation_side='left'
     
     # [summary, query, answer] -> summary
     @torch.no_grad()
     def summarize(self, content:list[str]) -> str:
-        input_ids = self.tokenizer("[BOS]" + "[SEP]".join(content) + "[EOS]", return_tensors='pt', truncation=True, max_length=1024).to(self.device)
+        input_ids = self.tokenizer("[BOS]" + "[SEP]".join(content) + "[EOS]", return_tensors='pt', truncation=True, max_length=512).to(self.device)
         if 'token_type_ids' in input_ids:
             del input_ids['token_type_ids']
         gen_ids = self.model.generate(**input_ids, max_length=self.max_length, use_cache=True)
