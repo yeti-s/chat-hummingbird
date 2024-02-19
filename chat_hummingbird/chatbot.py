@@ -18,7 +18,7 @@ class Chatbot():
         user_id:str,
         relation:str='지인',
         summary:Union[None, str]=None,
-        history:Union[None, list[str]]=None,
+        history:Union[None, list[tuple[str, str]]]=None,
         on_llm_new_sentence_handler:Union[None, Callable]=None,
         on_llm_end_handler:Union[None, Callable]=None,
         on_llm_error_handler:Union[None, Callable]=None
