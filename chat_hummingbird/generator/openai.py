@@ -110,7 +110,7 @@ class OpenAIGenerator(Generator):
         persona:str,
         relation:str,
         summary:Union[None, str]=None,
-        history:Union[None, list[tuple[str, str]]]=None,
+        history:Union[None, str]=None,
         on_llm_new_sentence_handler:Union[None, Callable]=None,
         on_llm_end_handler:Union[None, Callable]=None,
         on_llm_error_handler:Union[None, Callable]=None
@@ -135,11 +135,8 @@ class OpenAIGenerator(Generator):
             prompt = chat_prompt_wo_summary
         else:
             prompt = chat_prompt
-            history_text = ''
-            for turn in history:
-                history_text = f'{history_text}{user_name}: {turn[0]}\n{ai_name}: {turn[1]}\n'
             inputs['summary'] = summary
-            inputs['history'] = history_text
+            inputs['history'] = history
             
         # print prompt if debugging mode
         if self.debug:
