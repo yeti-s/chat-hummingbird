@@ -2,7 +2,25 @@
 
 여러 LLM을 이용하여 한국어로 사용자와 페르소나 기반 대화를 할 수 있는 챗봇을 만듭니다.
 
+# Install 📲
+
+### develop
+
+```python
+$ pip install .
+```
+
+### package
+```
+$ pip install git+https://github.com/yeti-s/chat-hummingbird.git
+```
+
 # Update 🆕
+
+### 2024.02.19
+
+* 생성되는 말투의 일관성을 유지하기 위해 답변 생성시 이전까지 나눴던 대화 이력 정보를 함께 넣어주었습니다.
+* 짧은 문장으로 이루어진 데이터셋으로 학습된 Embedding 모델의 특성을 반영하여 Vector DB에 페르소나 저장 시 짧은 문장으로 분리하여 저장하도록 변경하였습니다. 
 
 ### 2024.02.14
 
