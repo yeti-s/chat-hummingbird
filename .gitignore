@@ -165,3 +165,6 @@ chroma_data/
 
 # Chat-UI
 chat-ui-for-test/
+
+# Develop
+.vscode/
