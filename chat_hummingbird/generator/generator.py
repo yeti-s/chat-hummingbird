@@ -43,6 +43,7 @@ class Generator(metaclass=ABCMeta):
         query:str, 
         persona:str,
         relation:str,
+        example:Union[None, str]=None,
         summary:Union[None, str]=None,
         history:Union[None, list[str]]=None,
         on_llm_new_sentence_handler:Union[None, Callable]=None,

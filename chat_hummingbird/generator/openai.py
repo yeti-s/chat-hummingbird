@@ -65,7 +65,10 @@ user_prompt_wo_summary_template = '''
 '''
 
 user_prompt_template = '''
-이전 대화와 입력에 대한 1에서 3문장 사이의 짧은 대화 응답을 생성해줘.
+보여주는 예시를 참고하여 이전 대화와 입력에 대한 1에서 3문장 사이의 짧은 대화 응답을 생성해줘.
+
+<예시>
+{example}
 
 <이전 대화>
 {history}
@@ -109,6 +112,7 @@ class OpenAIGenerator(Generator):
         query:str, 
         persona:str,
         relation:str,
+        example:Union[None, str]=None,
         summary:Union[None, str]=None,
         history:Union[None, list[tuple[str, str]]]=None,
         on_llm_new_sentence_handler:Union[None, Callable]=None,
@@ -131,13 +135,14 @@ class OpenAIGenerator(Generator):
             'persona': persona, 
             'query': query
         }
-        if history is None or summary is None:
+        if history is None or summary is None or example is None:
             prompt = chat_prompt_wo_summary
         else:
             prompt = chat_prompt
             history_text = ''
             for turn in history:
                 history_text = f'{history_text}{user_name}: {turn[0]}\n{ai_name}: {turn[1]}\n'
+            inputs['example'] = example
             inputs['summary'] = summary
             inputs['history'] = history_text
             
