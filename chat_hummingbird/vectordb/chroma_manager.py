@@ -112,6 +112,30 @@ class ChromaManager():
             persona = f'{persona} {doc}'
         return persona
     
+    def add_message(self, summary:str, relation:str, dialogue:str) -> str:
+        doc = Document(
+            page_content=summary,
+            metadata={
+                'relation': relation,
+                'dialogue': dialogue
+            }
+        )
+        
+        return self.messages_db.add_documents([doc])
+    
+    def search_message(self, query:str, relation:str) -> str:
+        docs = self.messages_db.similarity_search(
+            query=query,
+            k=1,
+            filter={'relation': relation}
+        )
+        if len(docs) == 0:
+            return []
+        
+        return docs[0].metadata['dialogue']
+        
+        
+    
         
     def set_splitter(self, chunk_size:int, chunk_overlap:int) -> None:
         self.splitter = RecursiveCharacterTextSplitter(

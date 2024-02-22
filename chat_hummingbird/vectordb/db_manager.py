@@ -13,3 +13,9 @@ class DBManager(metaclass=ABCMeta):
     @abstractmethod
     def search_persona(self, user_id:str, index:int) -> str:
         pass
+    @abstractmethod
+    def add_message(self, summary:str, relation:str, dialogue:str) -> str:
+        pass
+    @abstractmethod
+    def search_message(self, summary:str, relation:str) -> str:
+        pass
