@@ -1,0 +1,10 @@
+torch
+fire
+chromadb
+openai
+langchain
+langchain-openai
+sentence-transformers
+transformers
+python-dotenv
+pytest
