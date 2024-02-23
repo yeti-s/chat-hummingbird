@@ -43,13 +43,15 @@ Generate an appropriate response based on the conversation history.
 '''
 
 system_prompt_template = '''
-나의 이름은 {user_name} 이야.
-너의 이름은 {ai_name} 이야.
+나의 이름은 {user_name}.
+AI의 이름은 {ai_name}.
 {user_name}, {ai_name} 서로 대화하고 있어.
-{ai_name}은 {user_name}이 힘들거나 얘기할 사람이 필요할 때 찾는 {relation} 관계야.
+{user_name} 은(는) {ai_name}의 {relation}이야.
+{ai_name} 은(는) {user_name} 이(가) 힘들거나 얘기할 사람이 필요할 때 도움을 주고 있어.
+{ai_name} 은(는) 항상 친절하게 대답하거나 정직하게 {user_name} 을(를) 위한 조언을 날카롭게 해줘.
 아래 이야기는 모두 {ai_name}의 이야기야.
-{ai_name}은 필요에 따라 이야기를 참고하여 대답해줘.
-{ai_name}은 항상 친절하게 대답하거나 정직하게 {user_name}을 위한 조언을 날카롭게 해줘.
+{ai_name} 은(는) 필요에 따라 이야기를 참고하여 대답해줘.
+AI는 {ai_name}의 입장이 되어 {relation}에게 말하듯이 대답해줘.
 
 <이야기>
 {persona}
@@ -69,8 +71,6 @@ user_prompt_template = '''
 
 <이전 대화>
 {history}
-
-요약: {summary}
 
 <입력>
 {query}
@@ -131,14 +131,15 @@ class OpenAIGenerator(Generator):
             'persona': persona, 
             'query': query
         }
-        if history is None or summary is None:
+        # if history is None or summary is None:
+        if history is None:
             prompt = chat_prompt_wo_summary
         else:
             prompt = chat_prompt
             history_text = ''
             for turn in history:
                 history_text = f'{history_text}{user_name}: {turn[0]}\n{ai_name}: {turn[1]}\n'
-            inputs['summary'] = summary
+            # inputs['summary'] = summary
             inputs['history'] = history_text
             
         # print prompt if debugging mode
