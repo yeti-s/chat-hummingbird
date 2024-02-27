@@ -8,6 +8,7 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
     ChatPromptTemplate
 )
+from langchain_core.messages.base import BaseMessage
 
 from chat_hummingbird.generator.generator import Generator, CustomCallbackHandler
 
@@ -150,5 +151,8 @@ class OpenAIGenerator(Generator):
         # generate response
         chain = LLMChain(llm=self.model, prompt=prompt, verbose=False)
         return chain.invoke(inputs, {'callbacks':[callback_handler]}, verbose=False)['text']
+    
+    def test_prompt(self, text:str) -> BaseMessage:
+        return self.model.invoke(text)
 
     
