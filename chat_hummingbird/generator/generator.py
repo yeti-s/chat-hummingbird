@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 from langchain.callbacks import StdOutCallbackHandler
 from langchain_core.outputs import LLMResult
+from langchain_core.messages.base import BaseMessage
 
 class CustomCallbackHandler(StdOutCallbackHandler):
     def __init__(
@@ -49,5 +50,12 @@ class Generator(metaclass=ABCMeta):
         on_llm_end_handler:Union[None, Callable]=None,
         on_llm_error_handler:Union[None, Callable]=None
     ) -> str:
+        pass
+    
+    @abstractmethod
+    def test_prompt(
+        self,
+        text
+    ) -> BaseMessage:
         pass
     
